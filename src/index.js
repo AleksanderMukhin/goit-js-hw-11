@@ -1,3 +1,5 @@
+import Notiflix from 'notiflix';
+
 const searchForm = document.querySelector('#search-form');
 const gallery = document.querySelector('.gallery');
 const loadMoreBtn = document.querySelector('.load-more');
@@ -17,12 +19,23 @@ function onSearch(e) {
   
   page = 1;
 
+  clearGallery()
+
   fetch(`https://pixabay.com/api/?key=${API_KEY}&q=${searchQuery}&image_type=photo&orientation=horizontal&safesearch=true&per_page=40&page=${page}`)
     .then(response => response.json())
     .then(photo => {
       page += 1;
       renderGallery(photo.hits);
-    });  
+      console.log(photo.totalHits)
+      if (photo.hits.length === 0) {
+        onFetchError();
+      }
+    })
+    .catch(onFetchError);
+};
+
+function onFetchError(error) {
+  Notiflix.Notify.failure(`Sorry, there are no images matching your search query. Please try again.`);
 };
 
 function onLoadMore() {
@@ -31,6 +44,7 @@ function onLoadMore() {
     .then(photo => {
       page += 1;
       renderGallery(photo.hits);
+      console.log(photo.totalHits);
     })
 }
 
@@ -38,7 +52,7 @@ function renderGallery(photo) {
   const markup = photo.map(({ webformatURL, largeImageURL, tags,
     likes, views, comments, downloads}) => {
       return `<div class="photo-card">
-  <img src="${largeImageURL}" alt="${tags}" loading="lazy" width=440 />
+  <img src="${webformatURL}" alt="${tags}" loading="lazy" width=440 />
   <div class="info">
     <p class="info-item">
       <b>Likes</b>
@@ -62,7 +76,9 @@ function renderGallery(photo) {
   gallery.insertAdjacentHTML('beforeend', markup)
 }
 
-
+function clearGallery() {
+  gallery.innerHTML = "";
+}
 
 
 // searcheBtn.disabled = true;
