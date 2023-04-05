@@ -8,25 +8,25 @@
     <script type="module" src="./index.js"></script>
   </head>
   <body>
-    <main>
-      <div class="container">
-        <form class="search-form" id="search-form">
-          <input
-            type="text"
-            name="searchQuery"
-            autocomplete="off"
-            placeholder="Search images..."
-          />
-          <button type="submit">Search</button>
-        </form>
+    <div class="container">
+      <form class="search-form" id="search-form">
+        <input
+          type="text"
+          name="searchQuery"
+          autocomplete="off"
+          placeholder="Search images..."
+        />
+        <button type="submit">
+          <svg class="icon icon-search"><use xlink:href="../src/images/#icon-search"></use></svg>
+        </button>
+      </form>
 
-        <div class="gallery">
-          <!-- Карточки изображений -->
-        </div>
-
-        <button type="button" class="load-more">Load more</button>
+      <div class="gallery">
+        <!-- Карточки изображений -->
       </div>
-    </main>
+
+      <button type="button" class="load-more">Load more</button>
+    </div>
     <script src="./js/gallary.js" type="module"></script>
   </body>
 </html>

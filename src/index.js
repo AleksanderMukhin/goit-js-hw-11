@@ -1,4 +1,8 @@
 import Notiflix from 'notiflix';
+// Описан в документации
+import SimpleLightbox from "simplelightbox";
+// Дополнительный импорт стилей
+import "simplelightbox/dist/simple-lightbox.min.css";
 
 const searchForm = document.querySelector('#search-form');
 const gallery = document.querySelector('.gallery');
@@ -29,6 +33,8 @@ function onSearch(e) {
       console.log(photo.totalHits)
       if (photo.hits.length === 0) {
         onFetchError();
+      } else if (photo.totalHits > 0) {
+       Notiflix.Notify.success(`Hooray! We found ${photo.totalHits} images.`);
       }
     })
     .catch(onFetchError);
@@ -51,8 +57,10 @@ function onLoadMore() {
 function renderGallery(photo) {
   const markup = photo.map(({ webformatURL, largeImageURL, tags,
     likes, views, comments, downloads}) => {
-      return `<div class="photo-card">
-  <img src="${webformatURL}" alt="${tags}" loading="lazy" width=440 />
+    return `<div class="photo-card">
+      <a class="gallery__item" href="${largeImageURL}">
+  <img src="${webformatURL}" alt="${tags}" loading="lazy" class="gallery__image" />
+  </a>
   <div class="info">
     <p class="info-item">
       <b>Likes</b>
@@ -74,7 +82,10 @@ function renderGallery(photo) {
 </div>`
     }).join("");
   gallery.insertAdjacentHTML('beforeend', markup)
+
+  const lightbox = new SimpleLightbox('.gallery a');
 }
+
 
 function clearGallery() {
   gallery.innerHTML = "";
