@@ -1,17 +1,20 @@
 import Notiflix from 'notiflix';
-// Описан в документации
 import SimpleLightbox from "simplelightbox";
-// Дополнительный импорт стилей
 import "simplelightbox/dist/simple-lightbox.min.css";
+import axios from 'axios';
+
 
 const searchForm = document.querySelector('#search-form');
 const gallery = document.querySelector('.gallery');
 const loadMoreBtn = document.querySelector('.load-more');
 const searcheBtn = document.querySelector('#search-form button[type="submit"]');
 
+
 const API_KEY = '34999731-d9d9d63f5d273555db0073a56';
 let searchQuery = '';
 let page = 1;
+
+loadMoreBtn.classList.add('hidden');
 
 searchForm.addEventListener('submit', onSearch);
 loadMoreBtn.addEventListener('click', onLoadMore);
@@ -34,7 +37,8 @@ function onSearch(e) {
       if (photo.hits.length === 0) {
         onFetchError();
       } else if (photo.totalHits > 0) {
-       Notiflix.Notify.success(`Hooray! We found ${photo.totalHits} images.`);
+        Notiflix.Notify.success(`Hooray! We found ${photo.totalHits} images.`);
+        loadMoreBtn.classList.remove('hidden');
       }
     })
     .catch(onFetchError);
@@ -50,7 +54,10 @@ function onLoadMore() {
     .then(photo => {
       page += 1;
       renderGallery(photo.hits);
-      console.log(photo.totalHits);
+      if (photo.hits.length === 0) {        
+        Notiflix.Notify.warning(`We're sorry, but you've reached the end of search results.`);
+        loadMoreBtn.classList.add('hidden');
+      }
     })
 }
 
@@ -64,19 +71,19 @@ function renderGallery(photo) {
   <div class="info">
     <p class="info-item">
       <b>Likes</b>
-      ${likes}      
+      <br>${likes}      
     </p>
     <p class="info-item">
       <b>Views</b>
-      ${views}
+      <br>${views}
     </p>
     <p class="info-item">
       <b>Comments</b>
-      ${comments}
+      <br>${comments}
     </p>
     <p class="info-item">
       <b>Downloads</b>
-      ${downloads}
+      <br>${downloads}
     </p>
   </div>
 </div>`

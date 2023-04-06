@@ -20,10 +20,18 @@ body {
 }
 
 .search-form > input {
-height: 35px;
+height: 33px;
 width: 400px;
 border-radius: 4px 0px 0px 4px;
 border: 1px solid rgba(33, 33, 33, .2);
+outline: none;
+}
+
+.search-form > button {
+  display: flex;
+  align-items: center;
+  border-radius: 0px 4px 4px 0px;
+  border: 1px solid rgba(33, 33, 33, .2);
 }
 
 .gallery {
@@ -35,12 +43,6 @@ border: 1px solid rgba(33, 33, 33, .2);
   justify-content: center;
   margin-left: auto;
   margin-right: auto;
-}
-
-.photo-card {
-  
-  
-  
 }
 
 .gallery__item {
@@ -74,6 +76,9 @@ border: 1px solid rgba(33, 33, 33, .2);
 
 .info {
   display: flex;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
   background: rgb(239, 228, 228);
   border-radius: 0px 0px 4px 4px;
   box-shadow: 0px 1px 3px rgba(0, 0, 0, .12), 0px 1px 1px rgba(0, 0, 0, .14), 0px 2px 1px rgba(0, 0, 0, .2);
@@ -82,7 +87,7 @@ border: 1px solid rgba(33, 33, 33, .2);
 .info-item {
   display: block;
   text-align: center;
-  font-size: 12px;
+  font-size: 16px;
 }
 
 .icon {
@@ -92,4 +97,30 @@ border: 1px solid rgba(33, 33, 33, .2);
   stroke-width: 0;
   stroke: currentColor;
   fill: currentColor;
+}
+
+.load-more {
+  display: block;
+  margin-top: 30px;
+  margin-bottom: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 8px 30px 8px 30px;
+  background:#2196F3;
+  color: #FFFFFF;
+  border: 1px solid #FFFFFF;
+  border-radius: 4px;
+}
+
+.hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
 }
