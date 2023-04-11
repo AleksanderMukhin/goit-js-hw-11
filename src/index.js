@@ -58,7 +58,7 @@ function onLoadMore() {
     console.log(restQuntity += hits.length);
     if (totalHits <= restQuntity) {
         loadMoreBtn.classList.add('hidden');
-        Notiflix.Notify.success(`We're sorry, but you've reached the end of search results.`);
+        Notiflix.Notify.info(`We're sorry, but you've reached the end of search results.`);
       }     
   });
 };
