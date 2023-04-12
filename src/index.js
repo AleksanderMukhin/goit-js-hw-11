@@ -39,8 +39,10 @@ function onSearch(e) {
         onFetchError();
       } else if (totalHits > 0) {
         Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
-        loadMoreBtn.classList.remove('hidden');
-      }
+    } else if (totalHits > 40) {
+          
+          loadMoreBtn.classList.remove('hidden');
+        }
     }
   )
   .catch(error => {
