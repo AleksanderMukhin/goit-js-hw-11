@@ -37,12 +37,12 @@ function onSearch(e) {
     renderGallery(hits);
     if (hits.length === 0) {      
         onFetchError();
-      } else if (totalHits > 0) {
-        Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
-    } else if (totalHits > 40) {
-          
+    } else if (totalHits > 40) {   
+      Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
           loadMoreBtn.classList.remove('hidden');
-        }
+        } else if (totalHits > 0) {
+        Notiflix.Notify.success(`Hooray! We found ${totalHits} images.`);
+    }
     }
   )
   .catch(error => {
@@ -57,7 +57,7 @@ let restQuntity = 40;
 function onLoadMore() {
   newsApiService.fetchCard().then(({ hits , totalHits}) => {
     renderGallery(hits);    
-    console.log(restQuntity += hits.length);
+    restQuntity += hits.length;
     if (totalHits <= restQuntity) {
         loadMoreBtn.classList.add('hidden');
         Notiflix.Notify.info(`We're sorry, but you've reached the end of search results.`);
