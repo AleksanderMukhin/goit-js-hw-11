@@ -24,10 +24,12 @@ let total = 0;
 function onSearch(e) {
   e.preventDefault();
 
+  loadMoreBtn.classList.add('hidden');
+
   clearGallery();
 
   newsApiService.query = e.currentTarget.searchQuery.value;
-  if (newsApiService.query === '') {
+  if (newsApiService.query.trim() === '') {
     return Notiflix.Notify.info(`Enter a request`);
   };
   
